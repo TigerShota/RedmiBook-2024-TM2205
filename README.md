@@ -27,11 +27,11 @@
 | 驱动 | HfsPlus.efi、OpenRuntime.efi、OpenCanopy.efi、ResetNvramEntry.efi |
 | ACPI | AWAC、EC-USBX-LAPTOP、GPI0、HPET、PLUG-ALT、PMC、PNLF、RHUB、RMNE、SBUS-MCHC、XOSI、ALS0、DMAR |
 
-主要 kext：Lilu、VirtualSMC（SMCProcessor / SMCSuperIO / SMCBatteryManager / SMCLightSensor）、WhateverXe（WhateverGreen 分支）、AppleIntelTGLCompat、AppleALC、AirportItlwm、IntelBluetoothFirmware（含 BlueToolFixup、IntelBTPatcher）、USBToolBox / UTBDefault、VoodooI2CHID、VoodooPS2Controller、ECEnabler、NVMeFix、RealtekRTL8111、CpuTopologyRebuild、RestrictEvents、AMFIPass、XHCI-unsupported、BrightnessKeys。
+主要 kext：Lilu、VirtualSMC（SMCProcessor / SMCSuperIO / SMCBatteryManager / SMCLightSensor）、WhateverXe（WhateverGreen 分支）、AppleIntelTGLCompat、AppleALC、AirportItlwm、IntelBluetoothFirmware（含 BlueToolFixup、IntelBTPatcher）、USBToolBox / UTBDefault、VoodooI2C（含 VoodooGPIO / VoodooI2CServices，已魔改加入 `0x51e88086` 匹配）、VoodooI2CHID、VoodooPS2Controller、ECEnabler、NVMeFix、RealtekRTL8111、CpuTopologyRebuild、RestrictEvents、AMFIPass、XHCI-unsupported、BrightnessKeys。
 
 ## 已知问题
 
-- 触控板：完全不可用（VoodooI2CHID 虽已加载，但触控板无任何响应）
+- 触控板：可识别可操作，但指针滑动时会跳位置（VoodooI2C 已魔改支持 `8086:51e8`，因缺少 TigerLake-LP GPIO 支持只能跑轮询模式，实际体验仍不可用）
 - 睡眠：休眠/唤醒异常，暂不建议依赖睡眠
 - HDMI：外接 HDMI 无输出
 
